@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SBI Forum</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-logo">SBI Forum</div>
+            <div class="header-icons">
+                <button class="icon-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="icon-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <img class="profile-pic" id="headerProfilePic" src="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='%234361ee'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3C/svg%3E" alt="Profile">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Feed Screen -->
+            <div class="screen active" id="feedScreen">
+                <div id="postsContainer">
+                    <!-- Posts will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Search Screen -->
+            <div class="screen" id="searchScreen">
+                <div class="search-container">
+                    <div class="search-header">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Rechercher des posts, des utilisateurs...">
+                        <button class="search-back-btn" id="searchBackBtn">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                    <div class="search-results" id="searchResults">
+                        <p class="search-placeholder">Entrez un terme de recherche pour commencer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div class="screen" id="profileScreen">
+                <div class="profile-form">
+                    <h2 style="margin-bottom: 24px; text-align: center;">Créer votre profil</h2>
+                    <div class="form-group">
+                        <label class="form-label">Pseudo *</label>
+                        <input type="text" class="form-input" id="username" placeholder="Entrez votre pseudo">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Photo de profil</label>
+                        <input type="file" class="form-input" id="profilePic" accept="image/*">
+                        <div class="photo-upload">
+                            <img class="photo-preview" id="profilePreview" src="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24' fill='%238d99ae'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3C/svg%3E" alt="Preview">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Photo de couverture</label>
+                        <input type="file" class="form-input" id="coverPic" accept="image/*">
+                        <img class="cover-preview" id="coverPreview" src="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='120' viewBox='0 0 300 120' fill='%238d99ae'%3E%3Crect width='300' height='120'/%3E%3C/svg%3E" alt="Cover Preview">
+                    </div>
+                    <button class="btn" id="saveProfileBtn">Enregistrer le profil</button>
+                </div>
+            </div>
+
+            <!-- Create Post Screen -->
+            <div class="screen" id="createPostScreen">
+                <div class="editor-toolbar">
+                    <button class="toolbar-btn" data-command="bold"><i class="fas fa-bold"></i></button>
+                    <button class="toolbar-btn" data-command="italic"><i class="fas fa-italic"></i></button>
+                    <button class="toolbar-btn" data-command="underline"><i class="fas fa-underline"></i></button>
+                    <button class="toolbar-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                    <button class="toolbar-btn" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                    <button class="toolbar-btn" id="insertImageBtn"><i class="fas fa-image"></i></button>
+                    <button class="toolbar-btn" id="insertVideoBtn"><i class="fas fa-video"></i></button>
+                    <button class="toolbar-btn" id="insertAudioBtn"><i class="fas fa-microphone"></i></button>
+                    <button class="toolbar-btn" id="insertLinkBtn"><i class="fas fa-link"></i></button>
+                </div>
+                <div class="editor-content" id="postEditor" contenteditable="true" placeholder="Écrivez votre post ici..."></div>
+                <div class="media-preview" id="mediaPreview"></div>
+                <button class="btn" id="publishPostBtn" style="margin-top: 16px;">Publier</button>
+                
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <input type="file" id="videoInput" accept="video/*" style="display: none;">
+                <input type="file" id="audioInput" accept="audio/*" style="display: none;">
+            </div>
+
+            <!-- Chat Screen -->
+            <div class="screen" id="chatScreen">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be dynamically inserted here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Tapez votre message...">
+                        <button class="send-btn" id="sendMessageBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-icon active" data-screen="feedScreen">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="footer-icon" data-screen="profileScreen">
+                <i class="fas fa-users"></i>
+            </div>
+            <button class="create-post-btn" id="createPostBtn">
+                <i class="fas fa-plus"></i>
+            </button>
+            <div class="footer-icon" data-screen="notificationsScreen">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="footer-icon" data-screen="chatScreen">
+                <i class="fas fa-comments"></i>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
